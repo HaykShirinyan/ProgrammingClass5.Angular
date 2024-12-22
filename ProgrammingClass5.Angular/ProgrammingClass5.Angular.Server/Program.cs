@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using ProgrammingClass5.Angular.Server.Data;
+
 namespace ProgrammingClass5.Angular.Server
 {
     public class Program
@@ -13,6 +16,11 @@ namespace ProgrammingClass5.Angular.Server
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             var app = builder.Build();
 
