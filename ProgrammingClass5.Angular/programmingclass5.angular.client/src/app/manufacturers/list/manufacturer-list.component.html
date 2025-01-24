@@ -1,0 +1,22 @@
+
+<div>
+  <h1>
+    Manufacturers
+  </h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let manufacturer of manufacturers">
+        <td>{{manufacturer.id}}</td>
+        <td>{{manufacturer.name}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
