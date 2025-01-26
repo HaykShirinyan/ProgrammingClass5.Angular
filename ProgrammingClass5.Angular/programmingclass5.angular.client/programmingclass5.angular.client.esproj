@@ -10,5 +10,6 @@
   <ItemGroup>
     <Folder Include="src\app\products\list\" />
     <Folder Include="src\app\shared\models\" />
+    <Folder Include="src\app\shared\services\" />
   </ItemGroup>
 </Project>
