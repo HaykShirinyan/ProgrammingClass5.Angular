@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ProgrammingClass5.Angular.Server.Data;
 using ProgrammingClass5.Angular.Server.Models;
+using ProgrammingClass5.Angular.Server.Repositories.Definitions;
 
 namespace ProgrammingClass5.Angular.Server.Controllers
 {
@@ -9,34 +10,32 @@ namespace ProgrammingClass5.Angular.Server.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private ApplicationDbContext _dbContext;
+        private IProductRepository _productRepository;
 
-        public ProductsController(ApplicationDbContext dbContext) 
+        public ProductsController(IProductRepository productRepository) 
         { 
-            _dbContext = dbContext;
+            _productRepository = productRepository;
         }
 
         [HttpGet]
         public IActionResult GetAll() 
-        { 
-            var products = _dbContext.Products.ToList();
+        {
+            var products = _productRepository.GetAll();
             return Ok(products);
         }
 
         [HttpPost]
         public IActionResult Add(Product product)
         {
-            _dbContext.Products.Add(product);
-            _dbContext.SaveChanges();
-
-            return Ok(product);
+            var addedProduct = _productRepository.Add(product);
+            return Ok(addedProduct);
         }
 
         // api/products/45
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var product = _dbContext.Products.Find(id);
+            var product = _productRepository.Get(id);
 
             if (product == null)
             {
@@ -55,24 +54,20 @@ namespace ProgrammingClass5.Angular.Server.Controllers
                 return BadRequest("ID in the URL must be the same as the ID in the body.");
             }
 
-            _dbContext.Products.Update(product);
-            _dbContext.SaveChanges();
+            var updatedProduct = _productRepository.Update(product);
 
-            return Ok(product);
+            return Ok(updatedProduct);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var product = _dbContext.Products.Find(id);
+            var product = _productRepository.Delete(id);
 
             if (product == null)
             {
                 return NotFound();
             }
-
-            _dbContext.Products.Remove(product);
-            _dbContext.SaveChanges();
 
             return Ok(product);
         }
