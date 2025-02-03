@@ -7,6 +7,7 @@ import { Injectable } from "@angular/core";
   providedIn: 'root'
 })
 export class ProductTypeService {
+  [x: string]: any;
   private readonly _http: HttpClient;
 
   constructor(http: HttpClient) {
@@ -15,5 +16,20 @@ export class ProductTypeService {
 
   public getAll(): Observable<ProductType[]> {
     return this._http.get<ProductType[]>('/api/productTypes');
+  }
+  public add(productType: ProductType): Observable<ProductType> {
+    return this._http.post<ProductType>('/api/productTypes', productType);
+  }
+
+  public get(id: number): Observable<ProductType> {
+    return this._http.get<ProductType>(`/api/productTypes/${id}`);
+  }
+
+  public update(productType: ProductType): Observable<ProductType> {
+    return this._http.put<ProductType>(`/api/productTypes/${productType.id}`, productType);
+  }
+
+  public delete(id: number): Observable<ProductType> {
+    return this._http.delete<ProductType>(`/api/productTypes/${id}`);
   }
 }

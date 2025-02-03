@@ -1,5 +1,11 @@
 
 <div>
+  <div class="d-flex justify-content-end">
+    <a [routerLink]="['/manufacturers/create']" class="btn btn-primary">
+      Create New
+    </a>
+  </div>
+
   <h1>
     Manufacturers
   </h1>
@@ -18,6 +24,11 @@
         <td>{{manufacturer.id}}</td>
         <td>{{manufacturer.name}}</td>
         <td>{{manufacturer.description}}</td>
+        <td>
+          <a [routerLink]="['/manufacturers/edit', manufacturer.id]" class="btn btn-secondary">
+            Edit
+          </a>
+        </td>
       </tr>
     </tbody>
   </table>
