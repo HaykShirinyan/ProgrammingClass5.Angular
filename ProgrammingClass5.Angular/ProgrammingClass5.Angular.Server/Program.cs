@@ -25,6 +25,8 @@ namespace ProgrammingClass5.Angular.Server
             });
 
             builder.Services.AddTransient<IProductRepository, ProductRepository>();
+            builder.Services.AddTransient<IProductTypeRepository, ProductTypeRepository>();
+            builder.Services.AddTransient<IManufacturerRepository, ManufacturerRepository>();
 
             var app = builder.Build();
 

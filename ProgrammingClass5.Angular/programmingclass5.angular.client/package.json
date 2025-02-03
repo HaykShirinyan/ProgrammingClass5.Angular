@@ -24,8 +24,6 @@
     "bootstrap": "^5.3.3",
     "jest-editor-support": "*",
     "run-script-os": "*",
-    "jest-editor-support": "*",
-    "run-script-os": "*",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
