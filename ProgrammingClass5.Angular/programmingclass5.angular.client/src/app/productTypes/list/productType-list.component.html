@@ -1,4 +1,12 @@
+
 <div>
+
+  <div class="d-flex justify-content-end">
+    <a [routerLink]="['/productTypes/create']" class="btn btn-primary">
+      Create New
+    </a>
+  </div>
+
   <h1>
     ProductTypes
   </h1>
@@ -17,6 +25,11 @@
         <td>{{productType.id}}</td>
         <td>{{productType.name}}</td>
         <td>{{productType.description}}</td>
+        <td>
+          <a [routerLink]="['/productTypes/edit', productType.id]" class="btn btn-secondary">
+            Edit
+          </a>
+        </td>
       </tr>
     </tbody>
   </table>

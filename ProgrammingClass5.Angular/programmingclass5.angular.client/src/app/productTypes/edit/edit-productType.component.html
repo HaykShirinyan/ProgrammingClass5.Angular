@@ -1,0 +1,45 @@
+
+<h1>
+  Edit ProductType
+</h1>
+
+<form #productTypeForm="ngForm" (ngSubmit)="saveData(productTypeForm)">
+  <div class="mb-3">
+    <label for="productType-name" class="form-label">
+      Name
+    </label>
+    <input id="productType-name"
+           name="name"
+           class="form-control"
+           required="required"
+           maxlength="100"
+           [(ngModel)]="productType.name" />
+    <div *ngIf="productTypeForm.controls['name'].errors" class="text-danger">
+      <div *ngIf="productTypeForm.controls['name'].errors['required']">
+        The Name field is required
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="productType-description" class="form-label">
+      Description
+    </label>
+    <textarea id="productType-description"
+              name="description"
+              class="form-control"
+              maxlength="500"
+              [(ngModel)]="productType.description">
+    </textarea>
+  </div>
+
+  <div>
+    <a class="btn btn-secondary me-2" [routerLink]="['/productTypes']">
+      Cancel
+    </a>
+
+    <button type="submit" class="btn btn-primary">
+      Save
+    </button>
+  </div>
+</form>

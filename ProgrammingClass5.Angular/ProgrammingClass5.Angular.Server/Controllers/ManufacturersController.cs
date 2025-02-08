@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using ProgrammingClass5.Angular.Server.Data;
 using ProgrammingClass5.Angular.Server.Models;
 using ProgrammingClass5.Angular.Server.Repositories.Definitions;
-using ProgrammingClass5.Angular.Server.Repositories.Implementations;
 
 namespace ProgrammingClass5.Angular.Server.Controllers
 {
@@ -12,22 +11,27 @@ namespace ProgrammingClass5.Angular.Server.Controllers
     public class ManufacturersController : ControllerBase
     {
         private IManufacturerRepository _manufacturerRepository;
+
         public ManufacturersController(IManufacturerRepository manufacturerRepository)
         {
             _manufacturerRepository = manufacturerRepository;
         }
+
         [HttpGet]
         public IActionResult GetAll()
         {
-            var manufacturer = _manufacturerRepository.GetAll();
-            return Ok(manufacturer);
+            var manufacturers = _manufacturerRepository.GetAll();
+            return Ok(manufacturers);
         }
+
         [HttpPost]
         public IActionResult Add(Manufacturer manufacturer)
         {
             var addedManufacturer = _manufacturerRepository.Add(manufacturer);
             return Ok(addedManufacturer);
         }
+
+        // api/manufacturers/45
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -40,27 +44,32 @@ namespace ProgrammingClass5.Angular.Server.Controllers
 
             return Ok(manufacturer);
         }
+
+        // api/manufacturers/78
         [HttpPut("{id}")]
         public IActionResult Update(int id, Manufacturer manufacturer)
         {
             if (id != manufacturer.Id)
             {
-                return BadRequest("Id in the URL must be the same as the ID in the body");
+                return BadRequest("ID in the URL must be the same as the ID in the body.");
             }
 
             var updatedManufacturer = _manufacturerRepository.Update(manufacturer);
+
             return Ok(updatedManufacturer);
         }
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var manufcturer = _manufacturerRepository.Delete(id);
+            var manufacturer = _manufacturerRepository.Delete(id);
 
-            if (manufcturer == null)
+            if (manufacturer == null)
             {
                 return NotFound();
             }
-            return Ok(manufcturer);
+
+            return Ok(manufacturer);
         }
     }
- }
+}

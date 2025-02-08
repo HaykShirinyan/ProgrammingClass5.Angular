@@ -4,7 +4,7 @@ using ProgrammingClass5.Angular.Server.Repositories.Definitions;
 
 namespace ProgrammingClass5.Angular.Server.Repositories.Implementations
 {
-    public class ProductTypeRepository : IProductTypeRepository 
+    public class ProductTypeRepository : IProductTypeRepository
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -53,4 +53,3 @@ namespace ProgrammingClass5.Angular.Server.Repositories.Implementations
         }
     }
 }
-
