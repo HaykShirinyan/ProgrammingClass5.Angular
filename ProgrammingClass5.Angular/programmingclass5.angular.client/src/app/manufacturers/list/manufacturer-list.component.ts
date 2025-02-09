@@ -1,21 +1,23 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
+import { ManufacturerService } from "../../shared/services/manufacturer.service";
 import { Manufacturer } from "../../shared/models/Manufacturer";
+
 
 @Component({
   templateUrl: './manufacturer-list.component.html'
 })
 export class ManufacturerListComponent implements OnInit {
-  private _httpClient: HttpClient;
+  private readonly _manufacturerService: ManufacturerService;
 
   public manufacturers: Manufacturer[] = [];
 
-  constructor(http: HttpClient) {
-    this._httpClient = httpClient
+  constructor(manufacturerService: ManufacturerService) {
+    this._manufacturerService = manufacturerService;
   }
 
   public ngOnInit(): void {
-    this._httpClient.get<Manufacturer[]>('/api/manufacturers')
+    this._manufacturerService.getAll()
       .subscribe(manufacturers => {
         this.manufacturers = manufacturers;
       });

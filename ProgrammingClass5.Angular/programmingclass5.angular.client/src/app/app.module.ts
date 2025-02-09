@@ -10,16 +10,24 @@ import { CreateProductComponent } from './products/create/create-product.compone
 import { EditProductComponent } from './products/edit/edit-product.component';
 import { ProductTypeListComponent } from './product-types/list/product-type-list.component';
 import { ManufacturerListComponent } from './manufacturers/list/manufacturer-list.component';
+import { EditProductTypeComponent } from './product-types/edit/edit-product-type.component';
+import { CreateProductTypeComponent } from './product-types/create/create-product-type.component';
+import { CreateManufacturerComponent } from './manufacturers/create/create-manufacturer.component';
+import { EditManufacturerComponent } from './manufacturers/edit/edit-manufacturer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductListComponent,
     CreateProductComponent,
-    EditProductComponent
-    ProductListComponent,
+    EditProductComponent,
     ProductTypeListComponent,
-    ManufacturerListComponent
+    ManufacturerListComponent,
+    EditProductTypeComponent,
+    CreateProductTypeComponent,
+    CreateManufacturerComponent,
+    EditManufacturerComponent
+
   ],
   imports: [
     BrowserModule,

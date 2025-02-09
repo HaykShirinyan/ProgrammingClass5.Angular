@@ -1,5 +1,11 @@
 
 <div>
+  <div class="d-flex justify-content-end">
+    <a [routerLink]="['/manufacturers/create']" class="btn btn-primary">
+      Create New
+    </a>
+  </div>
+
   <h1>
     Manufacturers
   </h1>
@@ -9,6 +15,7 @@
       <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>Actions</th>
       </tr>
     </thead>
 
@@ -16,6 +23,11 @@
       <tr *ngFor="let manufacturer of manufacturers">
         <td>{{manufacturer.id}}</td>
         <td>{{manufacturer.name}}</td>
+        <td>
+          <a [routerLink]="['/manufacturers/edit', manufacturer.id]" class="btn btn-secondary">
+            Edit
+          </a>
+        </td>
       </tr>
     </tbody>
   </table>
