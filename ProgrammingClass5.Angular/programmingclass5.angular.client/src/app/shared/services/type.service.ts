@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Type } from "../../shared/models/type"; 
+import { Type } from "../models/type"; 
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
@@ -16,5 +16,20 @@ export class TypeService {
 
   public getAll(): Observable<Type[]> { 
     return this._http.get<Type[]>('/api/types');
+  }
+
+  public add(type: Type): Observable<Type> {
+    return this._http.post<Type>('/api/types', type);
+  }
+
+  public get(id: number): Observable<Type> {
+    return this._http.get<Type>(`/api/types/${id}`);
+  }
+  public update(type: Type): Observable<Type> {
+    return this._http.put<Type>(`/api/types/${type.id}`, type);
+  }
+
+  public delete(id: number): Observable<Type> {
+    return this._http.delete<Type>(`/api/types/${id}`);
   }
 }
