@@ -14,6 +14,7 @@ import { EditProductTypeComponent } from './product-types/edit/edit-product-type
 import { CreateProductTypeComponent } from './product-types/create/create-product-type.component';
 import { CreateManufacturerComponent } from './manufacturers/create/create-manufacturer.component';
 import { EditManufacturerComponent } from './manufacturers/edit/edit-manufacturer.component';
+import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,8 @@ import { EditManufacturerComponent } from './manufacturers/edit/edit-manufacture
     CreateManufacturerComponent,
     EditManufacturerComponent
 
+    EditProductComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
