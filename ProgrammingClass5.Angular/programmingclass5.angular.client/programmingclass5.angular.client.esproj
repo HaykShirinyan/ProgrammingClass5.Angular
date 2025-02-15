@@ -12,7 +12,5 @@
     <Folder Include="src\app\products\create\" />
     <Folder Include="src\app\products\edit\" />
     <Folder Include="src\app\shared\components\loading-spinner\" />
-    <Folder Include="src\app\shared\models\" />
-    <Folder Include="src\app\productTypes\list\" />
   </ItemGroup>
 </Project>

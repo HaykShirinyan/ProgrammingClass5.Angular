@@ -8,19 +8,12 @@ import { AppComponent } from "./app.component";
 import { CreateProductComponent } from "./products/create/create-product.component";
 import { EditProductComponent } from "./products/edit/edit-product.component";
 import { ProductListComponent } from "./products/list/product-list.component";
-import { CreateProductTypeComponent } from "./productTypes/create/create-productType.component";
-import { EditProductTypeComponent } from "./productTypes/edit/edit-productType.component";
-import { ProductTypeListComponent } from "./productTypes/list/productType-list.component";
+import { CreateProductTypeComponent } from "./productTypes/create/create-product-type.component";
+import { EditProductTypeComponent } from "./productTypes/edit/edit-product-type.component";
+import { ProductTypeListComponent } from "./productTypes/list/product-type-list.component";
 import { ManufacturerListComponent } from "./manufacturers/list/manufacturer-list.component";
 import { CreateManufacturerComponent } from "./manufacturers/create/create-manufacturer.component";
 import { EditManufacturerComponent } from "./manufacturers/edit/edit-manufacturer.component";
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { ProductListComponent } from './products/list/product-list.component';
-import { FormsModule } from '@angular/forms';
-import { CreateProductComponent } from './products/create/create-product.component';
-import { EditProductComponent } from './products/edit/edit-product.component';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 
 @NgModule({
@@ -29,8 +22,7 @@ import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loa
     ProductListComponent,
     CreateProductComponent,
     EditProductComponent,
-    LoadingSpinnerComponent
-    EditProductComponent,
+    LoadingSpinnerComponent,
     ProductListComponent,
     CreateProductTypeComponent,
     EditProductTypeComponent,

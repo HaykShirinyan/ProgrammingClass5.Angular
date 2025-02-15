@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Manufacturer } from "../../shared/models/manufacturer";
-import { ManufacturerService } from "../../shared/services/manufacturer";
+import { ManufacturerService } from "../../shared/services/manufacturer.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgForm } from "@angular/forms";
 
