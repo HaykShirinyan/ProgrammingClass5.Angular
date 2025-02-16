@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProgrammingClass5.Angular.Server.Data;
 using ProgrammingClass5.Angular.Server.Models;
 using ProgrammingClass5.Angular.Server.Repositories.Definitions;
+using ProgrammingClass5.Angular.Server.Repositories.Implementations;
 
 namespace ProgrammingClass5.Angular.Server.Controllers
 {
@@ -76,5 +77,20 @@ namespace ProgrammingClass5.Angular.Server.Controllers
                         
             return Ok();
         }
+
+        [HttpDelete("delete-all")]
+        public IActionResult DeleteAll()
+        {
+            var producttypes = _productTypeRepository.GetAll().ToList();
+
+            if (!producttypes.Any())
+            {
+                return NotFound("No types found to delete.");
+            }
+
+            _productTypeRepository.DeleteAll();
+            return Ok(new { message = "All types deleted successfully." });
+        }
+
     }
 }

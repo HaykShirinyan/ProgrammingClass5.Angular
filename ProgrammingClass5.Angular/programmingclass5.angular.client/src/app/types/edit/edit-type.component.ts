@@ -13,6 +13,7 @@ export class EditTypeComponent implements OnInit {
   private readonly _router: Router;
 
   public type: Type = {};
+  public isLoading: boolean = false;
 
   constructor(
     typeService: TypeService,
@@ -24,23 +25,31 @@ export class EditTypeComponent implements OnInit {
     this._router = router;
   }
   public ngOnInit(): void {
+    this.isLoading = true;
     const id = this._activatedRoute.snapshot.paramMap.get('id');
 
-    if (id) {
+    if (id) { 
       this._typeService.get(parseInt(id))
         .subscribe(type => {
           this.type = type;
+          this.isLoading = false;
         });
     }
   }
 
   public saveData(typeForm: NgForm): void {
     if (typeForm.valid) {
+      this.isLoading = true
       this._typeService.update(this.type)
         .subscribe(() => {
           this._router.navigate(['/types']);
+          this.isLoading = false
         })
     }
   }
+
+  public hideSpinner(): void {
+    this.isLoading = false
   }
+}
 

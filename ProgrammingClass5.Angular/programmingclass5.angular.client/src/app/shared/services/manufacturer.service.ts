@@ -33,4 +33,11 @@ export class ManufacturerService {
   public delete(id: number): Observable<Manufacturer> {
     return this._http.delete<Manufacturer>(`/api/manufacturers/${id}`);
   }
+
+  public deleteAll(): Observable<void> {
+    return this._http.delete<void>('/api/manufacturers/delete-all');
+  }
+
+
+
 }

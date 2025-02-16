@@ -13,5 +13,7 @@ namespace ProgrammingClass5.Angular.Server.Repositories.Definitions
         ProductType Update(ProductType productType);    
 
         ProductType Delete(int id); 
+
+        List<ProductType> DeleteAll();
     }
 }

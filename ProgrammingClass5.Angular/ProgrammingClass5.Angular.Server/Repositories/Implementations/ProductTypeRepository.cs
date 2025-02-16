@@ -45,10 +45,21 @@ namespace ProgrammingClass5.Angular.Server.Repositories.Implementations
 
             if (producType != null)
             {
-                _dbContext.ProductTypes.Remove(producType); 
-                _dbContext.SaveChanges ();
+                _dbContext.ProductTypes.Remove(producType);
+                _dbContext.SaveChanges();
+                return producType;
             }
-             return producType;
+            return producType;
+
         }
+        public List<ProductType> DeleteAll()
+
+            {
+                var productType = _dbContext.ProductTypes.ToList();
+                _dbContext.ProductTypes.RemoveRange(productType);
+                _dbContext.SaveChanges();
+                return productType;
+            }
+        
     }
 }

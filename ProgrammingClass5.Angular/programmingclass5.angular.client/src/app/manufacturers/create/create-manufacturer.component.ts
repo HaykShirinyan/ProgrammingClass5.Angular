@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Output } from "@angular/core";
 import { ManufacturerService } from "../../shared/services/manufacturer.service";
 import { Router } from "@angular/router";
 import { Manufacturer } from "../../shared/models/manufacturer";
@@ -11,19 +11,30 @@ export class CreateManufacturerComponent {
   private readonly _manufacturerService: ManufacturerService;
   private readonly _router: Router;
 
+  
   public manufacturer: Manufacturer = {};
-
+  public isLoading: boolean = false;
   constructor(manufacturerService: ManufacturerService, router: Router) {
     this._manufacturerService = manufacturerService
     this._router = router;
 
 }
   public saveData(manufacturerForm: NgForm): void {
+    
     if (manufacturerForm.valid) {
-      this._manufacturerService.add(this.manufacturer)
-        .subscribe(() => {
+      this.isLoading = true;
+        this._manufacturerService.add(this.manufacturer)
+          .subscribe(() => {
+            this.isLoading = false;
           this._router.navigate(['/manufacturers']);
+         
         });
     }
   }
+
+  
+  public hideSpinner(): void {
+    this.isLoading = false
+  }
+
 }

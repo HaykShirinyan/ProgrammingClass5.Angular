@@ -11,10 +11,11 @@ import { EditProductComponent } from './products/edit/edit-product.component';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import { TypeListComponent } from './types/list/type-list.component';
 import { ManufacturerListComponent } from './manufacturers/list/manufacturer-list.component';
-import { CreateManufacturerComponent } from './products/create/create-manufacturer.component';
-import { EditManufacturerComponent } from './products/edit/edit-manufacturer.component';
-import { CreateTypeComponent } from './products/create/create-type.component';
-import { EditTypeComponent } from './products/edit/edit-type.component';
+import { CreateManufacturerComponent } from './manufacturers/create/create-manufacturer.component';
+import { EditManufacturerComponent } from './manufacturers/edit/edit-manufacturer.component';
+import { CreateTypeComponent } from './types/create/create-type.component';
+import { EditTypeComponent } from './types/edit/edit-type.component';
+import { DeleteButtonComponent } from './shared/components/delete-button/delete-button.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { EditTypeComponent } from './products/edit/edit-type.component';
     ManufacturerListComponent,
     CreateManufacturerComponent,
     EditManufacturerComponent,
+    DeleteButtonComponent,
 
     EditProductComponent,
     LoadingSpinnerComponent

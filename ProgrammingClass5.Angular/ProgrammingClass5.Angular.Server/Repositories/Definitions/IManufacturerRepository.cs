@@ -13,5 +13,7 @@ namespace ProgrammingClass5.Angular.Server.Repositories.Definitions
         Manufacturer Update(Manufacturer manufacturer);
 
         Manufacturer Delete(int id);
+
+        List<Manufacturer> DeleteAll();
     }
 }

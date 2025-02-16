@@ -75,7 +75,20 @@ namespace ProgrammingClass5.Angular.Server.Controllers
 
             return Ok(manufacturer);
         }
-       
+
+        [HttpDelete("delete-all")]
+        public IActionResult DeleteAll()
+        {
+            var manufacturers = _manufacturerRepository.GetAll().ToList();
+
+            if (!manufacturers.Any())
+            {
+                return NotFound("No manufacturers found to delete.");
+            }
+
+            _manufacturerRepository.DeleteAll();
+            return Ok(new { message = "All manufacturers deleted successfully." });
+        }
 
 
     }

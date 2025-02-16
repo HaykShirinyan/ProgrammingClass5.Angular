@@ -50,5 +50,16 @@ namespace ProgrammingClass5.Angular.Server.Repositories.Implementations
 
             return manufacturer;
         }
+
+        public List<Manufacturer> DeleteAll()
+
+        {
+            var manufacturers = _dbContext.Manufacturers.ToList(); 
+            _dbContext.Manufacturers.RemoveRange(manufacturers);
+            _dbContext.SaveChanges();
+            return manufacturers;
+        }
+
+
     }
 }

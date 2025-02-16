@@ -32,4 +32,8 @@ export class TypeService {
   public delete(id: number): Observable<Type> {
     return this._http.delete<Type>(`/api/types/${id}`);
   }
+
+  public deleteAll(): Observable<void> {
+    return this._http.delete<void>('/api/types/delete-all');
+  }
 }

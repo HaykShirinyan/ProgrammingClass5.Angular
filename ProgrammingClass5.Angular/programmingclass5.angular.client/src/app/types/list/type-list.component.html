@@ -1,8 +1,13 @@
+<loading-spinner *ngIf="isLoading" message="Loading Types..." (cancel)="hideSpinner()" />
+<div class="delete-container">
+  <p>Delete Types</p>
+  <delete-button [isDeleteAll]="true"  (delete)="deleteAllTypes()"></delete-button>
+</div>
 
 <div>
   <div class="d-flex justify-content-end">
     <a [routerLink]="['/types/create']" class=" btn btn-primary">
-      Create New 
+      Create New
     </a>
   </div>
   <h1>
@@ -16,18 +21,21 @@
         <th>Name</th>
         <th>Actions</th>
       </tr>
-      </thead>
+    </thead>
 
-      <tbody>
-        <tr *ngFor="let type of types">
-          <td>{{type.id}}</td>
-          <td>{{type.name}}</td>
-          <td>
-            <a [routerLink]="['/types/edit', type.id]" class="btn btn-secondary">
-              Edit
-            </a>
-          </td>
-        </tr>
-      </tbody>
-   </table>
+    <tbody>
+      <tr *ngFor="let type of types">
+        <td>{{type.id}}</td>
+        <td>{{type.name}}</td>
+        <td>
+          <a [routerLink]="['/types/edit', type.id]" class="btn btn-secondary">
+            Edit
+          </a>
+          <button class="btn btn-danger btn-sm ms-2" (click)="deleteType(type.id)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

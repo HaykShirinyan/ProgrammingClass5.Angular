@@ -15,6 +15,8 @@ export class CreateTypeComponent {
   private readonly _router: Router;
 
   public type: Type = {};
+  public isLoading: boolean = false;
+  
 
   constructor(typeService: TypeService, router: Router) {
     this._typeService = typeService;
@@ -23,11 +25,18 @@ export class CreateTypeComponent {
 
   public saveData(typeForm: NgForm): void {
     if (typeForm.valid) {
+      this.isLoading = true;
       this._typeService.add(this.type)
+
         .subscribe(() => {
           this._router.navigate(['/types']);
+          this.isLoading = false;
         });
     }
+  }
+
+  public hideSpinner(): void {
+    this.isLoading = false;
   }
 
 
