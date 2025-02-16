@@ -15,21 +15,21 @@ export class ProductTypeService {
   }
 
   public getAll(): Observable<ProductType[]> {
-    return this._http.get<ProductType[]>('/api/productTypes');
+    return this._http.get<ProductType[]>('/api/product-types');
   }
   public add(productType: ProductType): Observable<ProductType> {
-    return this._http.post<ProductType>('/api/productTypes', productType);
+    return this._http.post<ProductType>('/api/product-types', productType);
   }
 
   public get(id: number): Observable<ProductType> {
-    return this._http.get<ProductType>(`/api/productTypes/${id}`);
+    return this._http.get<ProductType>(`/api/product-types/${id}`);
   }
 
   public update(productType: ProductType): Observable<ProductType> {
-    return this._http.put<ProductType>(`/api/productTypes/${productType.id}`, productType);
+    return this._http.put<ProductType>(`/api/product-types/${productType.id}`, productType);
   }
 
   public delete(id: number): Observable<ProductType> {
-    return this._http.delete<ProductType>(`/api/productTypes/${id}`);
+    return this._http.delete<ProductType>(`/api/product-types/${id}`);
   }
 }

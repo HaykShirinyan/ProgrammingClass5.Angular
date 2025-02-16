@@ -27,4 +27,9 @@ export class ProductTypeListComponent implements OnInit {
   public hideSpinner(): void {
     this.isLoading = false
   }
+  public deleteProductType(id: number): void {
+    this._productTypeService.delete(id).subscribe(() => {
+      this.productTypes = this.productTypes.filter(p => p.id !== id);
+    });
+  }
 }

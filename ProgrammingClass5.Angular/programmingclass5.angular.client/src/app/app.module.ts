@@ -15,6 +15,7 @@ import { ManufacturerListComponent } from "./manufacturers/list/manufacturer-lis
 import { CreateManufacturerComponent } from "./manufacturers/create/create-manufacturer.component";
 import { EditManufacturerComponent } from "./manufacturers/edit/edit-manufacturer.component";
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
+import { DeleteButtonComponent } from "./shared/components/delete-button/delete-button.component";
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loa
     CreateProductComponent,
     EditProductComponent,
     LoadingSpinnerComponent,
+    DeleteButtonComponent,
     ProductListComponent,
     CreateProductTypeComponent,
     EditProductTypeComponent,

@@ -25,9 +25,12 @@
         <td>{{manufacturer.name}}</td>
         <td>{{manufacturer.description}}</td>
         <td>
-          <a [routerLink]="['/manufacturers/edit', manufacturer.id]" class="btn btn-secondary">
-            Edit
-          </a>
+          <div>
+            <a [routerLink]="['/manufacturers/edit', manufacturer.id]" class="btn btn-secondary">
+              Edit
+            </a>
+            <delete-button (delete)="deleteManufacturer(manufacturer.id!)"></delete-button>
+          </div>
         </td>
       </tr>
     </tbody>

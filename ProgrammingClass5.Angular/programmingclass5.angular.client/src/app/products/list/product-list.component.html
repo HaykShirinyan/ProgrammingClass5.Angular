@@ -32,9 +32,12 @@
         <td>{{product.unitPrice}}</td>
         <td>{{product.quantity}}</td>
         <td>
-          <a [routerLink]="['/products/edit', product.id]" class="btn btn-secondary">
-            Edit
-          </a>
+          <div>
+            <a [routerLink]="['/products/edit', product.id]" class="btn btn-secondary">
+              Edit
+            </a>
+            <delete-button (delete)="deleteProduct(product.id!)"></delete-button>
+          </div>
         </td>
       </tr>
     </tbody>
