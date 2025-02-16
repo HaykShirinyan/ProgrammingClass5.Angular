@@ -8,7 +8,7 @@ import { ProductListComponent } from './products/list/product-list.component';
 import { FormsModule } from '@angular/forms';
 import { CreateProductComponent } from './products/create/create-product.component';
 import { EditProductComponent } from './products/edit/edit-product.component';
-import { ProductTypeListComponent } from './productTypes/list/productType-list.component';
+import { ProductTypeListComponent } from './productTypes/list/product-type-list.component';
 import { ManufacturerListComponent } from './manufacturers/list/manufacturer-list.component';
 import { CreateProductTypeComponent } from './productTypes/create/create-productType.component';
 import { EditProductTypeComponent } from './productTypes/edit/edit-productType.component';
@@ -28,7 +28,7 @@ import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loa
     EditProductTypeComponent,
     ManufacturerListComponent,
     CreateManufacturerComponent,
-    EditManufacturerComponent
+    EditManufacturerComponent,
     EditProductComponent,
     LoadingSpinnerComponent
   ],
