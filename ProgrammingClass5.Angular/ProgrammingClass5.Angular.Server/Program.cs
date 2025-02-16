@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using ProgrammingClass5.Angular.Server.Data;
+using ProgrammingClass5.Angular.Server.Mapping;
 using ProgrammingClass5.Angular.Server.Repositories.Definitions;
 using ProgrammingClass5.Angular.Server.Repositories.Implementations;
 
@@ -23,6 +24,8 @@ namespace ProgrammingClass5.Angular.Server
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            builder.Services.AddAutoMapper(typeof(ProductProfile).Assembly);
 
             builder.Services.AddTransient<IProductRepository, ProductRepository>();
 
