@@ -1,4 +1,6 @@
 
+<loading-spinner *ngIf="isLoading" message="Loading Products..." (cancel)="hideSpinner()" />
+
 <div>
   <div class="d-flex justify-content-end">
     <a [routerLink]="['/products/create']" class="btn btn-primary">
