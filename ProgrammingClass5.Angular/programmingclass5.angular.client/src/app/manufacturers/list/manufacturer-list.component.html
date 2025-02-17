@@ -17,6 +17,7 @@
         <th>ID</th>
         <th>Name</th>
         <th>Description</th>
+        <th>Actions</th>
       </tr>
     </thead>
 
@@ -25,11 +26,16 @@
         <td>{{manufacturer.id}}</td>
         <td>{{manufacturer.name}}</td>
         <td>{{manufacturer.description}}</td>
+        <div>
         <td>
           <a [routerLink]="['/manufacturers/edit', manufacturer.id]" class="btn btn-secondary">
             Edit
           </a>
         </td>
+        <td>
+          <del-btn (delete)="deleteManufacturer(manufacturer.id!)" />
+        </td>
+        </div>
       </tr>
     </tbody>
   </table>

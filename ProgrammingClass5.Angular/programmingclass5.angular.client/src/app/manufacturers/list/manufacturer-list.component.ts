@@ -31,4 +31,9 @@ export class ManufacturerListComponent implements OnInit {
   public hideSpinner(): void {
     this.isLoading = false;
   }
+  public deleteManufacturer(id: number): void {
+    this._manufacturerService.delete(id).subscribe(() => {
+      this.manufacturers = this.manufacturers.filter(m => m.id !== id);
+    });
+  }
 }

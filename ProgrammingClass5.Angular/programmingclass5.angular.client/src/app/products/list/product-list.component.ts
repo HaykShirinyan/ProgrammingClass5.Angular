@@ -10,7 +10,6 @@ export class ProductListComponent implements OnInit {
 
   public products: Product[] = [];
   public isLoading: boolean = false;
-
   constructor(productService: ProductService) {
     this._productService = productService;
   }
@@ -27,5 +26,10 @@ export class ProductListComponent implements OnInit {
 
   public hideSpinner(): void {
     this.isLoading = false;
+  }
+  public deleteProduct(id: number): void {
+    this._productService.delete(id).subscribe(() => {
+      this.products = this.products.filter(p => p.id !== id);
+    });
   }
 }

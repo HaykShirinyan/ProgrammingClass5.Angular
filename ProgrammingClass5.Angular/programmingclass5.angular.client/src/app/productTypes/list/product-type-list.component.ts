@@ -4,7 +4,7 @@ import { ProductType } from "../../shared/models/product-type";
 import { ProductTypeService } from "../../shared/services/product-type.service";
 
 @Component({
-  template: './productType-list.component.html'
+  templateUrl: './product-type-list.component.html'
 })
 
 export class ProductTypeListComponent implements OnInit {
@@ -29,5 +29,10 @@ export class ProductTypeListComponent implements OnInit {
 
   public hideSpinner(): void {
     this.isLoading = false;
+  }
+  public deleteProductType(id: number): void {
+    this._productTypeService.delete(id).subscribe(() => {
+      this.productTypes = this.productTypes.filter(pT => pT.id !== id);
+    });
   }
 }

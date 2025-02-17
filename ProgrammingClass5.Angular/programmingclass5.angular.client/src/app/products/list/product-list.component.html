@@ -31,11 +31,16 @@
         <td>{{product.description}}</td>
         <td>{{product.unitPrice}}</td>
         <td>{{product.quantity}}</td>
+        <div>
         <td>
           <a [routerLink]="['/products/edit', product.id]" class="btn btn-secondary">
             Edit
           </a>
         </td>
+        <td>
+          <del-btn (delete)="deleteProduct(product.id!)"/>
+        </td>
+        </div>
       </tr>
     </tbody>
   </table>

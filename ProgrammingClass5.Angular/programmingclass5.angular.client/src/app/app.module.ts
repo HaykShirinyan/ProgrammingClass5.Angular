@@ -15,6 +15,8 @@ import { EditProductTypeComponent } from './productTypes/edit/edit-productType.c
 import { CreateManufacturerComponent } from './manufacturers/create/create-manufacturer.component';
 import { EditManufacturerComponent } from './manufacturers/edit/edit-manufacturer.component';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
+import { DeleteButtonComponent } from './shared/components/delete-buton/delete-button.component';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loa
     CreateManufacturerComponent,
     EditManufacturerComponent,
     EditProductComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    DeleteButtonComponent
   ],
   imports: [
     BrowserModule,

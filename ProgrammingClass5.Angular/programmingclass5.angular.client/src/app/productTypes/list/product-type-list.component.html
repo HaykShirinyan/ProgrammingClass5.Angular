@@ -18,6 +18,7 @@
         <th>ID</th>
         <th>Name</th>
         <th>Description</th>
+        <th>Actions</th>
       </tr>
     </thead>
 
@@ -26,11 +27,16 @@
         <td>{{productType.id}}</td>
         <td>{{productType.name}}</td>
         <td>{{productType.description}}</td>
+        <div>
         <td>
           <a [routerLink]="['/productTypes/edit', productType.id]" class="btn btn-secondary">
             Edit
           </a>
         </td>
+        <td>
+          <del-btn (delete)="deleteProductType(productType.id!)" />
+        </td>
+      </div>
       </tr>
     </tbody>
   </table>

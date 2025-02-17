@@ -44,7 +44,6 @@ namespace ProgrammingClass5.Angular.Server
 
             app.UseAuthorization();
 
-
             app.MapControllers();
 
             app.MapFallbackToFile("/index.html");
