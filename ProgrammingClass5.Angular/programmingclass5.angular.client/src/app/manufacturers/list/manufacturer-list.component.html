@@ -33,7 +33,7 @@
           </a>
         </td>
         <td>
-          <del-btn (delete)="deleteManufacturer(manufacturer.id!)" />
+          <del-btn *ngIf="manufacturer.id" (delete)="deleteManufacturer(manufacturer.id)"></del-btn>
         </td>
         </div>
       </tr>

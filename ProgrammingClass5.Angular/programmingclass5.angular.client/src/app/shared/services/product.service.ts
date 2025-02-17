@@ -30,7 +30,8 @@ export class ProductService {
     return this._http.put<Product>(`/api/products/${product.id}`, product);
   }
 
-  public delete(id: number): Observable<Product> {
-    return this._http.delete<Product>(`/api/products/${id}`);
+  public delete(id: number): Promise<Product> {
+    const observable = this._http.delete<Product>(`/api/products/${id}`);
+    return lastValueFrom(observable);
   }
 }

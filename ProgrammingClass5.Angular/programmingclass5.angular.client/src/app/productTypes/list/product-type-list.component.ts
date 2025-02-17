@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
+import { Component, Injectable, OnInit } from "@angular/core";
 import { ProductType } from "../../shared/models/product-type";
 import { ProductTypeService } from "../../shared/services/product-type.service";
 
@@ -17,22 +17,22 @@ export class ProductTypeListComponent implements OnInit {
     this._productTypeService = productTypeService;
   }
 
-  public ngOnInit(): void {
+  public async ngOnInit(): Promise<void> {
     this.isLoading = true;
 
-    this._productTypeService.getAll()
-      .subscribe(productTypes => {
-        this.productTypes = productTypes;
-        this.isLoading = false;
-      });
+    this.productTypes = await this._productTypeService.getAll();
+    this.isLoading = false
+      
   }
 
   public hideSpinner(): void {
     this.isLoading = false;
   }
-  public deleteProductType(id: number): void {
-    this._productTypeService.delete(id).subscribe(() => {
-      this.productTypes = this.productTypes.filter(pT => pT.id !== id);
-    });
+
+  public async deleteProductType(id: number): Promise<void> {
+    if (confirm("Are you sure you want to delete this productType?")) {
+      await this._productTypeService.delete(id);
+      this.productTypes = this.productTypes.filter(productType => productType.id !== id);
+    }
   }
 }

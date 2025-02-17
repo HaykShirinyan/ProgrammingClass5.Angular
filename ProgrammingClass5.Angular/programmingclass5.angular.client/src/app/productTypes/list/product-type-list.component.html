@@ -34,7 +34,7 @@
           </a>
         </td>
         <td>
-          <del-btn (delete)="deleteProductType(productType.id!)" />
+          <del-btn *ngIf="productType.id" (delete)="deleteProductType(productType.id)"></del-btn>
         </td>
       </div>
       </tr>

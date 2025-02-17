@@ -1,11 +1,9 @@
-import { HttpClient } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
+import { Component, Injectable, OnInit } from "@angular/core";
 import { Manufacturer } from "../../shared/models/manufacturer";
-import { Product } from "../../shared/models/product";
 import { ManufacturerService } from "../../shared/services/manufacturer.service";
-import { ProductService } from "../../shared/services/product.service";
 
 @Component({
+  selector: 'app-manufacturer-list',
   templateUrl: './manufacturer-list.component.html'
 })
 export class ManufacturerListComponent implements OnInit {
@@ -18,22 +16,21 @@ export class ManufacturerListComponent implements OnInit {
     this._manufacturerService = manufacturerService;
   }
 
-  public ngOnInit(): void {
+  public async ngOnInit(): Promise<void> {
     this.isLoading = true;
 
-    this._manufacturerService.getAll()
-      .subscribe(manufacturers => {
-        this.manufacturers = manufacturers;
-        this.isLoading = false;
-      });
+    this.manufacturers = await this._manufacturerService.getAll();
+    this.isLoading = false;
   }
 
   public hideSpinner(): void {
     this.isLoading = false;
   }
-  public deleteManufacturer(id: number): void {
-    this._manufacturerService.delete(id).subscribe(() => {
-      this.manufacturers = this.manufacturers.filter(m => m.id !== id);
-    });
+
+  public async deleteManufacturer(id: number): Promise<void> {
+    if (confirm("Are you sure you want to delete this manufacturer?")) {
+      await this._manufacturerService.delete(id);
+      this.manufacturers = this.manufacturers.filter(manufacturer => manufacturer.id !== id);
+    }
   }
 }
