@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { lastValueFrom, Observable } from "rxjs";
 import { Product } from "../models/product";
 import { Injectable } from "@angular/core";
 
@@ -13,8 +13,9 @@ export class ProductService {
     this._http = http;
   }
 
-  public getAll(): Observable<Product[]> {
-    return this._http.get<Product[]>('/api/products');
+  public getAll(): Promise<Product[]> {
+    const observable = this._http.get<Product[]>('/api/products');
+    return lastValueFrom(observable);
   }
 
   public add(product: Product): Observable<Product> {
