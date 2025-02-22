@@ -17,14 +17,11 @@ export class ManufacturerListComponent implements OnInit {
     this._manufacturerService = manufacturerService;
   }
 
-  public ngOnInit(): void {
+  public async ngOnInit(): Promise<void> {
     this.isLoading = true;
 
-    this._manufacturerService.getAll()
-      .subscribe(manufacturers => {
-        this.manufacturers = manufacturers;
-        this.isLoading = false;
-      });
+    this.manufacturers = await this._manufacturerService.getAll();
+    this.isLoading = false;
   }
 
   public hideSpinner(): void {

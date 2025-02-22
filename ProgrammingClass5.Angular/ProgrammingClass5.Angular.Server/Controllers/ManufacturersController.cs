@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using ProgrammingClass5.Angular.Server.DataTransferObjects;
 using ProgrammingClass5.Angular.Server.Models;
 using ProgrammingClass5.Angular.Server.Repositories.Definitions;
 namespace ProgrammingClass5.Angular.Server.Controllers
@@ -8,64 +10,72 @@ namespace ProgrammingClass5.Angular.Server.Controllers
     public class ManufacturersController : ControllerBase
     {
         private IManufacturerRepository _manufacturerRepository;
+        private IMapper _mapper;
 
-        public ManufacturersController(IManufacturerRepository manufacturerRepository)
+        public ManufacturersController(IManufacturerRepository manufacturerRepository, IMapper mapper)
         {
             _manufacturerRepository = manufacturerRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAllAsync()
         {
-            var manufactruers = _manufacturerRepository.GetAll();
-            return Ok(manufactruers);
+            var manufacturers = await _manufacturerRepository.GetAllAsync();
+
+            var manufacturerDtoList = _mapper.Map<List<ManufacturerDto>>(manufacturers);
+
+            return Ok(manufacturerDtoList);
         }
 
         [HttpPost]
-        public IActionResult Add(Manufacturer manufacturer)
+        public async Task<IActionResult> AddAsync(Manufacturer manufacturer)
         {
-            var addedManufacturer = _manufacturerRepository.Add(manufacturer);
-            return Ok(addedManufacturer);
+            var addedManufacturer = await _manufacturerRepository.AddAsync(_mapper.Map<Manufacturer>(manufacturer));
+
+            var addedDto = _mapper.Map<ManufacturerDto>(addedManufacturer);
+
+            return Ok(addedDto);
         }
 
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> GetAsync(int id)
         {
-            var manufacturer = _manufacturerRepository.Get(id);
+            var manufacturer = await _manufacturerRepository.GetAsync(id);
 
             if (manufacturer == null)
             {
                 return NotFound();
             }
 
-            return Ok(manufacturer);
+            return Ok(_mapper.Map<ManufacturerDto>(manufacturer));
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, Manufacturer manufacturer)
+        public async Task<IActionResult> UpdateAsync(int id, ManufacturerDto manufacturer)
         {
             if (id != manufacturer.Id)
             {
                 return BadRequest("ID in the URL must be the same as the ID in the body.");
             }
 
-            var updatedManufacturer = _manufacturerRepository.Update(manufacturer);
+            var updatedManufacturer = await _manufacturerRepository.UpdateAsync(_mapper.Map<Manufacturer>(manufacturer));
 
-            return Ok(updatedManufacturer);
+            return Ok(_mapper.Map<ManufacturerDto>(updatedManufacturer));
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
-            var manufacturer = _manufacturerRepository.Delete(id);
+            var manufacturer = await _manufacturerRepository.DeleteAsync(id);
 
             if (manufacturer == null)
             {
                 return NotFound();
             }
 
-            return Ok(manufacturer);
+            return Ok(_mapper.Map<ManufacturerDto>(manufacturer));
         }
     }
 }
