@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProgrammingClass5.Angular.Server.Data;
+using ProgrammingClass5.Angular.Server.DataTransferObjects;
 using ProgrammingClass5.Angular.Server.Models;
 using ProgrammingClass5.Angular.Server.Repositories.Definitions;
 
