@@ -24,27 +24,22 @@ export class EditTypeComponent implements OnInit {
     this._activatedRoute = activateRoute;
     this._router = router;
   }
-  public ngOnInit(): void {
+  public async ngOnInit(): Promise<void> {
     this.isLoading = true;
     const id = this._activatedRoute.snapshot.paramMap.get('id');
 
     if (id) { 
-      this._typeService.get(parseInt(id))
-        .subscribe(type => {
-          this.type = type;
-          this.isLoading = false;
-        });
+      this.type = await this._typeService.get(parseInt(id))
+      this.isLoading = false;
     }
   }
 
-  public saveData(typeForm: NgForm): void {
+  public async saveData(typeForm: NgForm):Promise<void> {
     if (typeForm.valid) {
       this.isLoading = true
-      this._typeService.update(this.type)
-        .subscribe(() => {
+      await this._typeService.update(this.type)
           this._router.navigate(['/types']);
           this.isLoading = false
-        })
     }
   }
 

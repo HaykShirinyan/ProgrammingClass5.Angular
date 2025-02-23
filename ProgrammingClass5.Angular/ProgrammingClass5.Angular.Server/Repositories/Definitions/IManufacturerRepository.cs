@@ -4,16 +4,16 @@ namespace ProgrammingClass5.Angular.Server.Repositories.Definitions
 {
     public interface IManufacturerRepository
     {
-        List<Manufacturer> GetAll();
+       Task <List<Manufacturer>> GetAllAsync();
 
-        Manufacturer Get(int id);   
+       Task<Manufacturer> GetAsync(int id);   
 
-        Manufacturer Add(Manufacturer manufacturer);
+       Task<Manufacturer> AddAsync(Manufacturer manufacturer);
 
-        Manufacturer Update(Manufacturer manufacturer);
+       Task<Manufacturer> UpdateAsync(Manufacturer manufacturer);
 
-        Manufacturer Delete(int id);
+       Task <Manufacturer> DeleteAsync(int id);
 
-        List<Manufacturer> DeleteAll();
+       Task<List<Manufacturer>> DeleteAllAsync();
     }
 }

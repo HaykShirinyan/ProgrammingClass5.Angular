@@ -17,42 +17,36 @@ export class ManufacturerListComponent implements OnInit {
     this._router = router;
   }
 
-  public ngOnInit(): void {
+  public async ngOnInit(): Promise<void> {
     this.isLoading = true;
-    this._manufacturerService.getAll()
-      .subscribe(manufacturers => {
-        this.manufacturers = manufacturers;
-        this.isLoading = false;
-      });
+    this.manufacturers = await this._manufacturerService.getAll();
+    this.isLoading = false;
   }
 
   public hideSpinner(): void {
     this.isLoading = false;
   }
 
-  public deleteManufacturer(id?: number): void {
+  public async deleteManufacturer(id?: number): Promise<void> {
     if (id === undefined) {
       console.error("Manufacturer ID is undefined.");
       return;
     }
-
+  
     if (confirm("Are you sure you want to delete this manufacturer?")) {
-      this._manufacturerService.delete(id).subscribe(() => {
-      
-        this.loadManufacturers();
-      });
+      await this._manufacturerService.delete(id)
+      this.loadManufacturers(); 
+
     }
   }
 
-  private loadManufacturers(): void {
-    this._manufacturerService.getAll().subscribe((data) => {
-      this.manufacturers = data;
-    });
+  private async loadManufacturers(): Promise<void> {
+    this.manufacturers=await this._manufacturerService.getAll()
   }
-  public deleteAllManufacturers(): void {
-    this._manufacturerService.deleteAll().subscribe(() => {
-      this.manufacturers = []; 
-    });
+
+  public async deleteAllManufacturers(): Promise<void> {
+    await this._manufacturerService.deleteAll();
+    this.manufacturers = [];
   }
 
 

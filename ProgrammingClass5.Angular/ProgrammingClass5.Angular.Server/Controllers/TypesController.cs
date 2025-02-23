@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProgrammingClass5.Angular.Server.Data;
+using ProgrammingClass5.Angular.Server.DataTransferObjects;
 using ProgrammingClass5.Angular.Server.Models;
 using ProgrammingClass5.Angular.Server.Repositories.Definitions;
 using ProgrammingClass5.Angular.Server.Repositories.Implementations;
@@ -12,84 +14,89 @@ namespace ProgrammingClass5.Angular.Server.Controllers
     public class TypesController : ControllerBase
     {
         private IProductTypeRepository  _productTypeRepository;
+        private IMapper _mapper;    
 
 
-        public TypesController(IProductTypeRepository productTypeRepository)
+        public TypesController(IProductTypeRepository productTypeRepository, IMapper mapper)
 
         {
             _productTypeRepository = productTypeRepository;
+            _mapper = mapper;
 
         }
 
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAllAsync()
 
         {
-            var producttypes = _productTypeRepository.GetAll();
-            return Ok(producttypes);
+            var producttypes = await _productTypeRepository.GetAllAsync();
+            var producttypesDtoList= _mapper.Map<List<ProductTypeDto>>(producttypes);
+            return Ok(producttypesDtoList);
         }
 
         [HttpPost]
 
-        public IActionResult Add(ProductType productType)
+        public async Task<IActionResult> AddAsync(ProductTypeDto productType)
 
         {
-            var addedproductType = _productTypeRepository.Add(productType);
+            var addedproductType = await _productTypeRepository.AddAsync(_mapper.Map<ProductType>(productType));
+            var addedDto = _mapper.Map<ProductDto>(addedproductType);
 
-            return Ok(addedproductType);
+            return Ok(addedDto);
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> GetAsync(int id)
 
         {
-            var producttypes = _productTypeRepository.Get(id);
+            var producttypes =await _productTypeRepository.GetAsync(id);
 
             if (producttypes == null)
             {
                 return NotFound();
             }
 
-            return Ok(producttypes);
+            return Ok(_mapper.Map<ProductTypeDto>(producttypes));
+            
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, ProductType productType)
+        public async Task<IActionResult> UpdateAsync(int id, ProductType productType)
         {
             if (id != productType.Id)
             {
                 return BadRequest("Id in the URL must be the same as the ID in the body");
             }
 
-            var updatedproductType = _productTypeRepository.Update(productType);
-            return Ok(updatedproductType);
+            var updatedproductType = await _productTypeRepository.UpdateAsync(productType);
+            return Ok(_mapper.Map<ProductTypeDto>(updatedproductType));
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
-            var producttypes = _productTypeRepository.Delete(id);
+            var producttypes = await _productTypeRepository.DeleteAsync(id);
             if (producttypes == null)
             {
                 return NotFound();
             }
                         
-            return Ok();
+            return Ok(_mapper.Map<ProductTypeDto>(producttypes));
         }
 
         [HttpDelete("delete-all")]
-        public IActionResult DeleteAll()
+        public async Task<IActionResult> DeleteAllAsync()
         {
-            var producttypes = _productTypeRepository.GetAll().ToList();
+            var producttypes = await _productTypeRepository.GetAllAsync();
 
-            if (!producttypes.Any())
+            if (producttypes == null || !producttypes.Any())
             {
                 return NotFound("No types found to delete.");
             }
 
-            _productTypeRepository.DeleteAll();
-            return Ok(new { message = "All types deleted successfully." });
+           await _productTypeRepository.DeleteAllAsync();
+           return Ok(new { message = "All types deleted successfully." });
         }
 
     }

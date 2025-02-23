@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Type } from "../models/type"; 
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { lastValueFrom, Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -14,26 +14,33 @@ export class TypeService {
     this._http = http;
   }
 
-  public getAll(): Observable<Type[]> { 
-    return this._http.get<Type[]>('/api/types');
+  public getAll(): Promise <Type[]> { 
+    const observable = this._http.get<Type[]>('/api/types');
+    return lastValueFrom(observable);
   }
 
-  public add(type: Type): Observable<Type> {
-    return this._http.post<Type>('/api/types', type);
+  public add(type: Type): Promise<Type> {
+    const observable = this._http.post<Type>('/api/types', type);
+    return lastValueFrom(observable);
   }
 
-  public get(id: number): Observable<Type> {
-    return this._http.get<Type>(`/api/types/${id}`);
+  public get(id: number): Promise<Type> {
+    const observable = this._http.get<Type>(`/api/types/${id}`);
+    return lastValueFrom(observable)
   }
-  public update(type: Type): Observable<Type> {
-    return this._http.put<Type>(`/api/types/${type.id}`, type);
-  }
-
-  public delete(id: number): Observable<Type> {
-    return this._http.delete<Type>(`/api/types/${id}`);
+  public update(type: Type): Promise<Type> {
+    const observable = this._http.put<Type>(`/api/types/${type.id}`, type);
+    return lastValueFrom(observable)
   }
 
-  public deleteAll(): Observable<void> {
-    return this._http.delete<void>('/api/types/delete-all');
+  public delete(id: number): Promise<void> {
+    const observable = this._http.delete<void>(`/api/types/${id}`);
+    return lastValueFrom(observable);
+    
+  }
+
+  public deleteAll(): Promise<void> {
+    const observable = this._http.delete<void>('/api/types/delete-all');
+    return lastValueFrom(observable)
   }
 }

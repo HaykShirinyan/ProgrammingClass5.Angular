@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProgrammingClass5.Angular.Server.Data;
 using ProgrammingClass5.Angular.Server.DataTransferObjects;
@@ -12,82 +13,91 @@ namespace ProgrammingClass5.Angular.Server.Controllers
     public class ManufacturersController : ControllerBase
     {
         private IManufacturerRepository _manufacturerRepository;
+        private IMapper _mapper;    
 
-        public ManufacturersController(IManufacturerRepository manufacturerRepository)
+        public object ManufacturerDto { get; private set; }
+
+        public ManufacturersController(IManufacturerRepository manufacturerRepository, IMapper mapper)
         {
             _manufacturerRepository = manufacturerRepository;
+            _mapper = mapper;
 
         }
 
         [HttpGet]
 
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAllAsync()
 
         {
-            var manufacturers =_manufacturerRepository.GetAll();
+            var manufacturers = await _manufacturerRepository.GetAllAsync();
+            var manufacturerDtoList = _mapper.Map<List<ManufacturerDto>>(manufacturers);
 
-            return Ok(manufacturers);
+
+            return Ok(manufacturerDtoList);
         }
 
         [HttpPost]
 
-        public IActionResult Add(Manufacturer manufacturer)
+        public async Task<IActionResult> AddAsync(ManufacturerDto manufacturer)
         {
-           var addedManufacturer = _manufacturerRepository.Add(manufacturer);   
-            
-            return Ok(addedManufacturer);   
+           var addedManufacturer = await _manufacturerRepository.AddAsync(_mapper.Map<Manufacturer>(manufacturer));
+            var addedDto = _mapper.Map<ManufacturerDto>(addedManufacturer);
+
+            return Ok(addedDto);
+
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> GetAsync(int id)
         {
-            var manufacturer = _manufacturerRepository.Get(id);     
+            var manufacturer = await _manufacturerRepository.GetAsync(id);     
 
             if (manufacturer == null)
             {
                 return NotFound();
             }
 
-            return Ok(manufacturer);
+            return Ok(_mapper.Map<ManufacturerDto>(manufacturer)); 
+            
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, Manufacturer manufacturer)
+        public async Task<IActionResult> UpdateAsync(int id, Manufacturer manufacturer)
         {
             if (id != manufacturer.Id)
             {
                 return BadRequest("Id in the URL must be the same as the ID in the body");
             }
 
-            var updateManufacturer = _manufacturerRepository.Update(manufacturer);
+            var updateManufacturer = await _manufacturerRepository.UpdateAsync(manufacturer);
 
-            return Ok(updateManufacturer);
+            return Ok(_mapper.Map<ManufacturerDto>(updateManufacturer));
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
-            var manufacturer = _manufacturerRepository.Delete(id);  
+            var manufacturer = await _manufacturerRepository.DeleteAsync(id);  
 
             if (manufacturer == null)
             { 
                return NotFound();
             }
 
-            return Ok(manufacturer);
+            return Ok(_mapper.Map<ManufacturerDto>(manufacturer));
         }
 
         [HttpDelete("delete-all")]
-        public IActionResult DeleteAll()
+        public async Task<IActionResult> DeleteAllAsync()
         {
-            var manufacturers = _manufacturerRepository.GetAll().ToList();
+            var manufacturers = await _manufacturerRepository.GetAllAsync();
 
-            if (!manufacturers.Any())
+            if (manufacturers == null || !manufacturers.Any())
             {
                 return NotFound("No manufacturers found to delete.");
             }
 
-            _manufacturerRepository.DeleteAll();
+           await _manufacturerRepository.DeleteAllAsync();
             return Ok(new { message = "All manufacturers deleted successfully." });
         }
 

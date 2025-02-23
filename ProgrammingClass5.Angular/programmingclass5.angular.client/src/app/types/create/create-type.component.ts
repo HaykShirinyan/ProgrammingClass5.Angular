@@ -16,29 +16,22 @@ export class CreateTypeComponent {
 
   public type: Type = {};
   public isLoading: boolean = false;
-  
-
-  constructor(typeService: TypeService, router: Router) {
+    constructor(typeService: TypeService, router: Router) {
     this._typeService = typeService;
     this._router = router;
   }
 
-  public saveData(typeForm: NgForm): void {
+  public async saveData(typeForm: NgForm): Promise <void> {
     if (typeForm.valid) {
       this.isLoading = true;
-      this._typeService.add(this.type)
-
-        .subscribe(() => {
-          this._router.navigate(['/types']);
-          this.isLoading = false;
-        });
+      await this._typeService.add(this.type)
+      this.isLoading = false;
+      this._router.navigate(['/types']);
     }
   }
 
   public hideSpinner(): void {
     this.isLoading = false;
   }
-
-
-  
+    
 }

@@ -1,4 +1,5 @@
-﻿using ProgrammingClass5.Angular.Server.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ProgrammingClass5.Angular.Server.Data;
 using ProgrammingClass5.Angular.Server.Models;
 using ProgrammingClass5.Angular.Server.Repositories.Definitions;
 
@@ -13,51 +14,51 @@ namespace ProgrammingClass5.Angular.Server.Repositories.Implementations
             _dbContext = dbContext;
         }
 
-        public List<ProductType> GetAll()
+        public async Task<List<ProductType>> GetAllAsync()
         {
-            return _dbContext.ProductTypes.ToList();
+            return await _dbContext.ProductTypes.ToListAsync(); 
         }
 
-        public ProductType Get(int id)
+        public async Task<ProductType> GetAsync(int id)
         {
-            return _dbContext.ProductTypes.Find(id);
+            return await _dbContext.ProductTypes.FindAsync(id);
         }
 
-        public ProductType Add(ProductType productType)
+        public async Task<ProductType> AddAsync(ProductType productType)
         {
             _dbContext.ProductTypes.Add(productType);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
 
             return productType; 
         }
 
-        public ProductType Update(ProductType productType)
+        public async Task<ProductType> UpdateAsync(ProductType productType)
         {
             _dbContext.ProductTypes.Update(productType);
-            _dbContext.SaveChanges ();
+            await _dbContext.SaveChangesAsync();
 
             return productType; 
         }
 
-        public ProductType Delete(int id)
+        public async Task<ProductType> DeleteAsync(int id)
         {
-            var producType = _dbContext.ProductTypes.Find(id);
+            var producType = await _dbContext.ProductTypes.FindAsync(id);
 
             if (producType != null)
             {
                 _dbContext.ProductTypes.Remove(producType);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
                 return producType;
             }
             return producType;
 
         }
-        public List<ProductType> DeleteAll()
+        public async Task<List<ProductType>> DeleteAllAsync()
 
             {
-                var productType = _dbContext.ProductTypes.ToList();
+                var productType = await _dbContext.ProductTypes.ToListAsync();
                 _dbContext.ProductTypes.RemoveRange(productType);
-                _dbContext.SaveChanges();
+                await _dbContext.SaveChangesAsync();
                 return productType;
             }
         

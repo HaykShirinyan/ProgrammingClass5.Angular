@@ -1,4 +1,5 @@
-﻿using ProgrammingClass5.Angular.Server.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using ProgrammingClass5.Angular.Server.Data;
 using ProgrammingClass5.Angular.Server.Models;
 using ProgrammingClass5.Angular.Server.Repositories.Definitions;
 
@@ -13,50 +14,51 @@ namespace ProgrammingClass5.Angular.Server.Repositories.Implementations
             _dbContext = dbContext;
         }
 
-        public List<Manufacturer> GetAll()
-        { 
-            return _dbContext.Manufacturers.ToList();
-        }
-
-        public Manufacturer Get(int id) 
+        public async Task<List<Manufacturer>> GetAllAsync()
         {
-            return _dbContext.Manufacturers.Find(id);
+            return await _dbContext.Manufacturers.ToListAsync();    
         }
 
-        public Manufacturer Add(Manufacturer manufacturer) 
+        public async Task<Manufacturer> GetAsync(int id) 
+        {
+            return  await _dbContext.Manufacturers.FindAsync(id);
+        }
+
+        public async Task<Manufacturer> AddAsync(Manufacturer manufacturer) 
         {
             _dbContext.Manufacturers.Add(manufacturer);
-            _dbContext.SaveChanges();
+             await _dbContext.SaveChangesAsync();
 
             return manufacturer;
         }
 
-        public Manufacturer Update(Manufacturer manufacturer) 
+        public async Task<Manufacturer> UpdateAsync(Manufacturer manufacturer) 
         {
             _dbContext.Manufacturers.Update(manufacturer);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
 
             return manufacturer;
         }
 
-        public Manufacturer Delete(int id) 
+        public async Task<Manufacturer> DeleteAsync(int id) 
         {
-            var manufacturer = _dbContext.Manufacturers.Find(id);
+            var manufacturer = await _dbContext.Manufacturers.FindAsync(id);
+
                 if(manufacturer != null)
                 { 
                   _dbContext.Manufacturers.Remove(manufacturer);
-                  _dbContext.SaveChanges();
+                  await _dbContext.SaveChangesAsync();
                 }
 
             return manufacturer;
         }
 
-        public List<Manufacturer> DeleteAll()
+        public async Task<List<Manufacturer>> DeleteAllAsync()
 
         {
-            var manufacturers = _dbContext.Manufacturers.ToList(); 
+            var manufacturers = await _dbContext.Manufacturers.ToListAsync(); 
             _dbContext.Manufacturers.RemoveRange(manufacturers);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();    
             return manufacturers;
         }
 

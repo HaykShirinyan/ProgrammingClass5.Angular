@@ -16,7 +16,7 @@ export class EditManufacturerComponent implements OnInit {
   public isLoading: boolean = false;
 
   constructor(
-        manufacturerService: ManufacturerService,
+    manufacturerService: ManufacturerService,
     activatedRoute: ActivatedRoute,
     router: Router
   ) {
@@ -27,29 +27,23 @@ export class EditManufacturerComponent implements OnInit {
 
   
 
-  public ngOnInit(): void {
-    this.isLoading = false;
+  public async ngOnInit(): Promise<void> {
+    this.isLoading = true;
     
     const id = this._activatedRoute.snapshot.paramMap.get('id');
 
     if (id) {
-      this._manufacturerService.get(parseInt(id))
-
-        .subscribe(manufacturer => {
-          this.isLoading = false;
-          this.manufacturer = manufacturer;
-        });
+     this.manufacturer= await this._manufacturerService.get(parseInt(id))
+      this.isLoading = false;
     }
   }
 
-  public saveData(manufacturerForm: NgForm): void {
+  public async saveData(manufacturerForm: NgForm):Promise<void> {
     if (manufacturerForm.valid) {
       this.isLoading = true;
-      this._manufacturerService.update(this.manufacturer)
-        .subscribe(() => {
+      await this._manufacturerService.update(this.manufacturer)
           this._router.navigate(['/manufacturers']);
           this.isLoading = false;
-        })
     }
   }
 
